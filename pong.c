@@ -152,7 +152,7 @@ int check_score() {
 	//loop through player scores
 	for(i = 0; i < 2; i++) {
 		//check if score is @ the score win limit
-		if (score[i] == 2 ) {
+		if (score[i] == 10 ) {
 			//reset scores
 			score[0] = 0;
 			score[1] = 0;
@@ -384,39 +384,6 @@ static void draw_game_over(int p) {
 
 	SDL_BlitScaled(img, NULL, screen, &dest);
 	
-	
-	/*SDL_Rect p1, cpu, dest;
-
-	p1.x = 0;
-	p1.y = 0;
-	p1.w = end->w;
-	p1.h = 75;
-
-	p2.x = 0;
-	p2.y = 75;
-	p2.w = end->w;
-	p2.h = 75;
-	
-	cpu.x = 0;
-	cpu.y = 150;
-	cpu.w = end->w;
-	cpu.h = 75;
-
-	dest.x = (width / 2) - scale_size(end->w / 2, scale_x);
-	dest.y = (height / 2) - scale_size(75 / 2, scale_y);
-	dest.w = scale_size(end->w, scale_x);
-	dest.h = scale_size(75, scale_y);
-
-	switch (p) {
-		case 1:			
-			SDL_BlitScaled(end, &p1, screen, &dest);
-			break;
-		case 2:
-			SDL_BlitScaled(end, &p2, screen, &dest);
-			break;
-		default:
-			SDL_BlitScaled(end, &cpu, screen, &dest);
-	}*/
 }
 
 static void draw_menu() {
@@ -506,7 +473,6 @@ static void draw_menu_option(SDL_Surface* image, int x, int y, int selected) {
 
 		Uint32 bluee = SDL_MapRGB(screen->format, 173, 216, 230);
 		SDL_FillRect(screen, &highlight_rect, bluee);
-		//SDL_FillRect(screen, &highlight_rect, 0xffff00aa); // Yellow highlight
 	}
 	
 	// Blit the scaled image to the screen
@@ -617,7 +583,7 @@ void load_digit_images() {
 	for (int i = 0; i <= 10; ++i) {
 		char filename[32];
 		snprintf(filename, sizeof(filename), "digits/%d.bmp", i);
-		  // e.g., digits/0.bmp ... digits/9.bmp
+		  // e.x., digits/0.bmp ... digits/10.bmp
 
 		digits[i] = SDL_LoadBMP(filename);
 		if (!digits[i]) {
@@ -843,8 +809,6 @@ int main (int argc, char *args[]) {
 	//free loaded images
 	SDL_FreeSurface(screen);
 	SDL_FreeSurface(title);
-	//SDL_FreeSurface(numbermap);
-	//SDL_FreeSurface(end);
 
 	free_digit_images();
 
@@ -895,8 +859,6 @@ int init(int width, int height, int argc, char *args[]) {
 	// Load BMP images for the game
 	screen = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
 	title = SDL_LoadBMP("title.bmp");
-	//numbermap = SDL_LoadBMP("numbermap.bmp");
-	//end = SDL_LoadBMP("gameover.bmp");
 	load_digit_images();
 	player_win_img = SDL_LoadBMP("player_win.bmp");
 	comp_win_img = SDL_LoadBMP("comp_win.bmp");
